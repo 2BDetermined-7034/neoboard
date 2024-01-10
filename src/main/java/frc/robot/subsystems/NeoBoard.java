@@ -5,13 +5,29 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel;
 
-public class Motor extends SubsystemBase {
+
+public class NeoBoard extends SubsystemBase {
+  CANSparkMax spinMotor1;
+  CANSparkMax spinMotor2;
+  CANSparkMax spinMotor3;
+  CANSparkMax spinMotor4;
   /** Creates a new ExampleSubsystem. */
-  public Motor() {
-    this.spinMotor1 = new CANSparkMax(13, MotorType.kBrushless);
+  public NeoBoard() {
+    this.spinMotor1 = new CANSparkMax(1, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+    this.spinMotor2 = new CANSparkMax(2, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+    this.spinMotor3 = new CANSparkMax(3, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+    this.spinMotor4 = new CANSparkMax(4, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+    SmartDashboard.getNumber("motor speed", 0);
+  }
+
+  public void NeoBoardSetSpeed(double speed) {
+    spinMotor1.set(speed);;
   }
 
   /**
@@ -42,6 +58,7 @@ public class Motor extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+   
   }
 
   @Override
