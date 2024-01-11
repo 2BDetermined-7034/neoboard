@@ -28,6 +28,9 @@ public class NeoBoard extends SubsystemBase {
 
   public void NeoBoardSetSpeed(double speed) {
     spinMotor1.set(speed);;
+    spinMotor2.set(speed);;
+    spinMotor3.set(speed);;
+    spinMotor4.set(speed);;
   }
 
   /**
