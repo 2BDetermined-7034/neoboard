@@ -7,10 +7,11 @@ package frc.robot.commands;
 import frc.robot.subsystems.NeoBoard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 
 /** An example command that uses an example subsystem. */
 public class NeoBoardCommand extends Command {
-  private final NeoBoard neoboard = new NeoBoard();
+  private final NeoBoard neoboard;
 
   /**
    * Creates a new ExampleCommand.
@@ -18,6 +19,8 @@ public class NeoBoardCommand extends Command {
    * @param subsystem The subsystem used by this command.
    */
   public NeoBoardCommand(NeoBoard subsystem) {
+    neoboard = subsystem;
+    SmartDashboard.putNumber("Speed", 0);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -28,13 +31,16 @@ public class NeoBoardCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    neoboard.NeoBoardSetSpeed(SmartDashboard.getNumber("motor speed", 0));;
-    // perhaps more code later.
+//    neoboard.NeoBoardSetSpeed(Constants.motorSpeeds.NeoBoardSpeed);;
+//     perhaps more code later.
+    neoboard.NeoBoardSetSpeed(SmartDashboard.getNumber("Speed", 0));
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+     neoboard.NeoBoardSetSpeed(0);
+  }
 
   // Returns true when the command should end.
   @Override

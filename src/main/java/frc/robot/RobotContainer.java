@@ -20,7 +20,10 @@ import frc.robot.commands.NeoBoardCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+
   private final NeoBoard neoboard = new NeoBoard();
+  private final NeoBoardCommand neoBoardCommand = new NeoBoardCommand(neoboard);
+
   //i am so neobored of this
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -52,8 +55,8 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-    m_driverController.a().toggleOnTrue(new NeoBoardCommand(neoboard)); //this is normal
+//    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.a().toggleOnTrue(neoBoardCommand); //this is normal
   }
 
   /**

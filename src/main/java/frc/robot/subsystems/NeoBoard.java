@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase;
 import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,22 +16,30 @@ import com.revrobotics.CANSparkLowLevel;
 public class NeoBoard extends SubsystemBase {
   CANSparkMax spinMotor1;
   CANSparkMax spinMotor2;
-  CANSparkMax spinMotor3;
-  CANSparkMax spinMotor4;
+//  CANSparkMax spinMotor3;
+//  CANSparkMax spinMotor4;
   /** Creates a new ExampleSubsystem. */
   public NeoBoard() {
     this.spinMotor1 = new CANSparkMax(1, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
     this.spinMotor2 = new CANSparkMax(2, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    this.spinMotor3 = new CANSparkMax(3, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    this.spinMotor4 = new CANSparkMax(4, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    SmartDashboard.getNumber("motor speed", 0);
+    this.spinMotor1.setInverted(false);
+    this.spinMotor2.setInverted(true);
+    this.spinMotor1.setIdleMode(CANSparkBase.IdleMode.kCoast);
+    this.spinMotor2.setIdleMode(CANSparkBase.IdleMode.kCoast);
+
+
+//    SmartDashboard.putBoolean("M2 Inverted", true);
+//    SmartDashboard.putBoolean("M1 Inverted", false);
+//    this.spinMotor3 = new CANSparkMax(3, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+    //this.spinMotor4 = new CANSparkMax(4, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+    //SmartDashboard.getNumber("motor speed", 0);
   }
 
   public void NeoBoardSetSpeed(double speed) {
     spinMotor1.set(speed);;
     spinMotor2.set(speed);;
-    spinMotor3.set(speed);;
-    spinMotor4.set(speed);;
+//    spinMotor3.set(speed);;
+//    spinMotor4.set(speed);;
   }
 
   /**
