@@ -21,16 +21,16 @@ public class NeoBoard extends SubsystemBase {
   public NeoBoard() {
     this.spinMotor1 = new CANSparkMax(1, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
     this.spinMotor2 = new CANSparkMax(2, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    this.spinMotor3 = new CANSparkMax(3, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    this.spinMotor4 = new CANSparkMax(4, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    SmartDashboard.getNumber("motor speed", 0);
+    //this.spinMotor3 = new CANSparkMax(3, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+    //this.spinMotor4 = new CANSparkMax(4, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+    //SmartDashboard.getNumber("motor speed", 0);
   }
 
   public void NeoBoardSetSpeed(double speed) {
     spinMotor1.set(speed);;
     spinMotor2.set(speed);;
-    spinMotor3.set(speed);;
-    spinMotor4.set(speed);;
+    //spinMotor3.set(speed);;
+    //spinMotor4.set(speed);;
   }
 
   /**
