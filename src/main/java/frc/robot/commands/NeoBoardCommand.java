@@ -8,15 +8,20 @@ import frc.robot.subsystems.NeoBoard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import java.util.logging.Logger;
+
 
 /** An example command that uses an example subsystem. */
 public class NeoBoardCommand extends Command {
   private final NeoBoard neoboard;
+  private final Logger logMessage = Logger.getLogger(NeoBoard.class.getName());
+  boolean messageEnabled = true;
+
 
   /**
-   * Creates a new ExampleCommand.
+   * Prepares the NeoBoard by adding the SmartDashboard speed and adding the subsystem requirements.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param subsystem The subsystem added in requirements.
    */
   public NeoBoardCommand(NeoBoard subsystem) {
     neoboard = subsystem;
@@ -34,12 +39,19 @@ public class NeoBoardCommand extends Command {
 //    neoboard.NeoBoardSetSpeed(Constants.motorSpeeds.NeoBoardSpeed);;
 //     perhaps more code later.
     neoboard.NeoBoardSetSpeed(SmartDashboard.getNumber("Speed", 0));
+    if (messageEnabled) {
+      logMessage.info("NeoBoard activated");
+      messageEnabled = false;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
      neoboard.NeoBoardSetSpeed(0);
+     logMessage.info("NeoBoard deactivated");
+     messageEnabled = true;
+
   }
 
   // Returns true when the command should end.

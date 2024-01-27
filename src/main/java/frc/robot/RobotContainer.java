@@ -50,13 +50,14 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
-        .whileTrue(new ExampleCommand(m_exampleSubsystem));
-    
+            .whileTrue(new ExampleCommand(m_exampleSubsystem));
+
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
 //    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     m_driverController.a().toggleOnTrue(neoBoardCommand); //this is normal
+
   }
 
   /**
