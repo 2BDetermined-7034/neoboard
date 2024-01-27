@@ -40,7 +40,14 @@ public class NeoBoardCommand extends Command {
 //     perhaps more code later.
     neoboard.NeoBoardSetSpeed(SmartDashboard.getNumber("Speed", 0));
     if (messageEnabled) {
-      logMessage.info("NeoBoard activated");
+      logMessage.info("NeoBoard activated\nCurrent speed: " + SmartDashboard.getNumber("Speed",0));
+      if (SmartDashboard.getNumber("Speed",0) >= 1.01) {
+        SmartDashboard.putNumber("Speed",0.5);
+        logMessage.warning("""
+                NeoBoard speed was at an unnecessarily high value.\s
+                Continuing the NeoBoard at this speed may result in unsafe measures to the current prototyping build.\s
+                Due to this, the speed has been heavily reduced to 0.5.""");
+      }
       messageEnabled = false;
     }
   }
