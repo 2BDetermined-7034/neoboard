@@ -5,27 +5,34 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkBase;
-import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel;
 
+import java.util.logging.Logger;
 
 public class NeoBoard extends SubsystemBase {
   CANSparkMax spinMotor1;
   CANSparkMax spinMotor2;
+
+  Logger messageDevice = Logger.getLogger(NeoBoard.class.getName());
 //  CANSparkMax spinMotor3;
 //  CANSparkMax spinMotor4;
   /** Creates a new ExampleSubsystem. */
   public NeoBoard() {
+    messageDevice.info("Preparing NeoBoard...");
     this.spinMotor1 = new CANSparkMax(1, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
     this.spinMotor2 = new CANSparkMax(2, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    this.spinMotor1.setInverted(false);
+    this.spinMotor1.setInverted(true);
     this.spinMotor2.setInverted(true);
     this.spinMotor1.setIdleMode(CANSparkBase.IdleMode.kCoast);
     this.spinMotor2.setIdleMode(CANSparkBase.IdleMode.kCoast);
+    messageDevice.info("""
+                       NeoBoard Ready \n
+                       CURRENT DEVICES ONLINE:\n
+                       """
+                       + spinMotor1.getDeviceId() + "\n"
+                       + spinMotor2.getDeviceId());
 
 
 //    SmartDashboard.putBoolean("M2 Inverted", true);
@@ -67,10 +74,26 @@ public class NeoBoard extends SubsystemBase {
     return false;
   }
 
+  public void reverse(boolean input) {
+    if (input) {
+      spinMotor1.setInverted(true);
+      spinMotor2.setInverted(true);
+    }else {
+      spinMotor1.setInverted(false);
+      spinMotor2.setInverted(false);
+    }
+  }
+
+  public void emergencyProtocol() {
+    this.spinMotor2.setIdleMode(CANSparkBase.IdleMode.kBrake);
+    this.spinMotor1.setIdleMode(CANSparkBase.IdleMode.kBrake);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   
+
+//    log("Battery Voltage", edu.wpi.first.wpilibj.RobotController.getBatteryVoltage());
   }
 
   @Override

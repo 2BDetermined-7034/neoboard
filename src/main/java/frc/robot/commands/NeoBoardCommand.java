@@ -4,14 +4,20 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.subsystems.NeoBoard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
+
+import java.sql.Driver;
+import java.util.logging.Logger;
 
 /** An example command that uses an example subsystem. */
 public class NeoBoardCommand extends Command {
   private final NeoBoard neoboard;
+  Logger messageDevice = Logger.getLogger(NeoBoard.class.getName());
+  boolean messageAccess = true;
+
 
   /**
    * Creates a new ExampleCommand.
@@ -21,6 +27,7 @@ public class NeoBoardCommand extends Command {
   public NeoBoardCommand(NeoBoard subsystem) {
     neoboard = subsystem;
     SmartDashboard.putNumber("Speed", 0);
+    SmartDashboard.putBoolean("Reverse Motors", false);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -32,14 +39,26 @@ public class NeoBoardCommand extends Command {
   @Override
   public void execute() {
 //    neoboard.NeoBoardSetSpeed(Constants.motorSpeeds.NeoBoardSpeed);;
-//     perhaps more code later.
+    neoboard.reverse(SmartDashboard.getBoolean("Reverse Motors", false));
     neoboard.NeoBoardSetSpeed(SmartDashboard.getNumber("Speed", 0));
+    if (messageAccess) {
+      messageDevice.info("NeoBoard Activated");
+      messageAccess = false;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
      neoboard.NeoBoardSetSpeed(0);
+     messageDevice.info("NeoBoard Deactivated");
+     messageAccess = true;
+  }
+
+  public Command emergencyStop() {
+    neoboard.emergencyProtocol();
+    neoboard.NeoBoardSetSpeed(0);
+    return null;
   }
 
   // Returns true when the command should end.
@@ -47,4 +66,5 @@ public class NeoBoardCommand extends Command {
   public boolean isFinished() {
     return false;
   }
+
 }

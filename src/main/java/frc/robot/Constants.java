@@ -16,8 +16,10 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
-  public static class motorSpeeds {
-    public static final double NeoBoardSpeed = 0.15;
-    public static final boolean CounterClockwise = true;
+  public static class motorConfig {
+//    public static final double NeoBoardSpeed = 0.15;
+//    public static final boolean CounterClockwise = true;
+//      public static final boolean motor2DefaultInvert = true;
+//      public static final boolean motor1DefualtInvert = true;
   }
 }
