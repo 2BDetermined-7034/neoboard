@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -57,6 +58,10 @@ public class RobotContainer {
     // cancelling on release.
 //    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     m_driverController.a().toggleOnTrue(neoBoardCommand); //this is normal
+
+    if (DriverStation.isEStopped()) {
+      neoBoardCommand.emergencyCommand();
+    }
   }
 
   /**

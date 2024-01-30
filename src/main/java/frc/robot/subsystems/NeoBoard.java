@@ -5,12 +5,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkBase;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel;
+import java.util.logging.Logger;
 
 
 public class NeoBoard extends SubsystemBase {
@@ -22,7 +24,7 @@ public class NeoBoard extends SubsystemBase {
   public NeoBoard() {
     this.spinMotor1 = new CANSparkMax(1, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
     this.spinMotor2 = new CANSparkMax(2, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    this.spinMotor1.setInverted(false);
+    this.spinMotor1.setInverted(true);
     this.spinMotor2.setInverted(true);
     this.spinMotor1.setIdleMode(CANSparkBase.IdleMode.kCoast);
     this.spinMotor2.setIdleMode(CANSparkBase.IdleMode.kCoast);
@@ -33,6 +35,9 @@ public class NeoBoard extends SubsystemBase {
 //    this.spinMotor3 = new CANSparkMax(3, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
     //this.spinMotor4 = new CANSparkMax(4, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
     //SmartDashboard.getNumber("motor speed", 0);
+    Logger.getLogger(NeoBoard.class.getName()).info("NeoBoard is ready.\nList of NeoBoard devices:\n"
+            + spinMotor1.getDeviceId() +"\n"
+            + spinMotor2.getDeviceId() +"\n");
   }
 
   public void NeoBoardSetSpeed(double speed) {
@@ -40,6 +45,11 @@ public class NeoBoard extends SubsystemBase {
     spinMotor2.set(speed);;
 //    spinMotor3.set(speed);;
 //    spinMotor4.set(speed);;
+  }
+
+  public void emergencyProtocol() {
+    spinMotor1.setIdleMode(CANSparkBase.IdleMode.kBrake);
+    spinMotor2.setIdleMode(CANSparkBase.IdleMode.kBrake);
   }
 
   /**
@@ -70,7 +80,6 @@ public class NeoBoard extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   
   }
 
   @Override
