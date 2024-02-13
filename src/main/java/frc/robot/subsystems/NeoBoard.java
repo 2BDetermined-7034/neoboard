@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import com.revrobotics.CANSparkMax;
 //import com.revrobotics.CANSparkLowLevel;
 import com.ctre.phoenix6.hardware.TalonFX;;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 
 public class NeoBoard extends SubsystemBase {
@@ -23,6 +24,8 @@ public class NeoBoard extends SubsystemBase {
     this.spinMotor1 = new TalonFX(1);
     this.spinMotor2 = new TalonFX(2);
 
+    this.spinMotor1.setNeutralMode(NeutralModeValue.Coast);
+    this.spinMotor2.setNeutralMode(NeutralModeValue.Coast);
   }
 
   public void NeoBoardSetSpeed(double speed) {
