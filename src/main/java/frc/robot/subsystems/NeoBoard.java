@@ -8,22 +8,21 @@ import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel;
+//import com.revrobotics.CANSparkMax;
+//import com.revrobotics.CANSparkLowLevel;
+import com.ctre.phoenix6.hardware.TalonFX;;
 
 
 public class NeoBoard extends SubsystemBase {
-  CANSparkMax spinMotor1;
-  CANSparkMax spinMotor2;
-  CANSparkMax spinMotor3;
-  CANSparkMax spinMotor4;
+  TalonFX spinMotor1;
+  TalonFX spinMotor2;
+  TalonFX spinMotor3;
+
   /** Creates a new ExampleSubsystem. */
   public NeoBoard() {
-    this.spinMotor1 = new CANSparkMax(1, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    this.spinMotor2 = new CANSparkMax(2, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    //this.spinMotor3 = new CANSparkMax(3, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    //this.spinMotor4 = new CANSparkMax(4, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
-    //SmartDashboard.getNumber("motor speed", 0);
+    this.spinMotor1 = new TalonFX(1);
+    this.spinMotor2 = new TalonFX(2);
+
   }
 
   public void NeoBoardSetSpeed(double speed) {
