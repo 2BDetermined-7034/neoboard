@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,12 +19,13 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 public class NeoBoard extends SubsystemBase {
   TalonFX spinMotor1;
   TalonFX spinMotor2;
-  TalonFX spinMotor3;
+  CANSparkMax neo550Motor;
 
   /** Creates a new ExampleSubsystem. */
   public NeoBoard() {
     this.spinMotor1 = new TalonFX(1);
     this.spinMotor2 = new TalonFX(2);
+    this.neo550Motor = new CANSparkMax(5, CANSparkLowLevel.MotorType.kBrushless);
 
     this.spinMotor1.setNeutralMode(NeutralModeValue.Coast);
     this.spinMotor2.setNeutralMode(NeutralModeValue.Coast);
@@ -31,6 +34,7 @@ public class NeoBoard extends SubsystemBase {
   public void NeoBoardSetSpeed(double speed) {
     spinMotor1.set(speed);;
     spinMotor2.set(speed);;
+    neo550Motor.set(speed);
     //spinMotor3.set(speed);;
     //spinMotor4.set(speed);;
   }
