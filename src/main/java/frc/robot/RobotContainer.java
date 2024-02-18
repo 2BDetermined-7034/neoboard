@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.event.EventLoop;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -13,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.NeoBoard;
 import frc.robot.commands.NeoBoardCommand;
+import frc.robot.commands.NeoBoardIndexerCommand;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -20,22 +23,27 @@ import frc.robot.commands.NeoBoardCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final NeoBoard neoboard = new NeoBoard();
+
+  private NeoBoard neoBoard = new NeoBoard();
+  private NeoBoardCommand neoBoardCommand = new NeoBoardCommand(neoBoard);
+  private NeoBoardIndexerCommand neoBoardIndexer = new NeoBoardIndexerCommand(neoBoard);
   //i am so neobored of this
   // The robot's subsystems and commands are defined here...
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final XboxController m_driverController =
+          new XboxController(OperatorConstants.kDriverControllerPort);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
   }
 
   /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the 
+   * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
    * predicate, or via the named factories in {@link
    * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
@@ -46,13 +54,14 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.a().toggleOnTrue(new NeoBoardCommand(neoboard)); //this is normal
+    new Trigger(m_driverController::getAButton).toggleOnTrue(neoBoardCommand);
+    new Trigger(m_driverController::getBButton).toggleOnTrue(neoBoardIndexer);
 
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -4,9 +4,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.Utils;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
-import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,27 +18,59 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 
 public class NeoBoard extends SubsystemBase {
-  TalonFX spinMotor1;
-  TalonFX spinMotor2;
-  CANSparkMax neo550Motor;
+  public TalonFX spinMotor1;
+  //TalonFX spinMotor2;
+  public CANSparkMax neo550Motor;
+  public CANSparkMax neo550Motor2;
+
+
 
   /** Creates a new ExampleSubsystem. */
   public NeoBoard() {
-    this.spinMotor1 = new TalonFX(1);
-    this.spinMotor2 = new TalonFX(2);
-    this.neo550Motor = new CANSparkMax(5, CANSparkLowLevel.MotorType.kBrushless);
+    this.spinMotor1 = new TalonFX(0);
+    //this.spinMotor2 = new TalonFX(2);
+    this.neo550Motor = new CANSparkMax(2, CANSparkLowLevel.MotorType.kBrushless);
+    this.neo550Motor2 = new CANSparkMax(1, CANSparkLowLevel.MotorType.kBrushless);
+    neo550Motor2.setInverted(true);
+    neo550Motor.setInverted(true);
+    this.spinMotor1.setInverted(false);
+    SmartDashboard.putNumber("Shooter Speed",0.0);
+    SmartDashboard.putNumber("Indexer Speed", 0.0);
+//    SmartDashboard.putBoolean("Pusher Inverted", false);
 
     this.spinMotor1.setNeutralMode(NeutralModeValue.Coast);
-    this.spinMotor2.setNeutralMode(NeutralModeValue.Coast);
+    //this.spinMotor2.setNeutralMode(NeutralModeValue.Coast);
   }
 
   public void NeoBoardSetSpeed(double speed) {
     spinMotor1.set(speed);;
-    spinMotor2.set(speed);;
-    neo550Motor.set(speed);
+    //spinMotor2.set(speed);;
+    //neo550Motor.set(speed);
     //spinMotor3.set(speed);;
     //spinMotor4.set(speed);;
   }
+//  public Command SwapDirections(boolean shooter, boolean intake) {
+//    if (shooter) {
+//      spinMotor1.setInverted(!spinMotor1.getInverted());
+//    }
+//    if (intake) {
+//      if (!neo550Motor.getInverted()) {
+//        neo550Motor.setInverted(true);
+//        neo550Motor2.setInverted(true);
+//      } else {
+//        neo550Motor.setInverted(false);
+//        neo550Motor2.setInverted(false);
+//      }
+//    }
+//    return null;
+//  }
+
+
+  public void NeoBoardIndexerCurrentSpeed(double speed) {
+    neo550Motor.set(MathUtil.clamp(speed*4, 0.0, 1.0));
+    neo550Motor2.set(speed);
+  }
+
 
   /**
    * Example command factory method.
